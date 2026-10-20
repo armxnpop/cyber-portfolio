@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armen Pop — Cybersecurity Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e13;
+    --bg-alt:#0d1219;
+    --panel:#11161f;
+    --panel-border:#1e2733;
+    --grid-line:#161d27;
+    --text:#d7e1e8;
+    --text-dim:#93a3b0;
+    --text-faint:#5b6a78;
+    --accent:#4fd1a5;
+    --accent-dim:#2f7a5e;
+    --accent-soft:rgba(79,209,165,0.08);
+    --alert:#e2574c;
+    --alert-soft:rgba(226,87,76,0.1);
+    --amber:#e0a94f;
+    --font-mono:'IBM Plex Mono',monospace;
+    --font-sans:'IBM Plex Sans',sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size:48px 48px;
+    background-attachment:fixed;
+  }
+
+  ::selection{background:var(--accent-dim);color:#fff;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(10,14,19,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-border);
+  }
+  .nav-inner{
+    max-width:980px;
+    margin:0 auto;
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-family:var(--font-mono);
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:0.5px;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:28px;
+  }
+  nav a{
+    font-family:var(--font-mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--text-dim);
+    transition:color 0.2s;
+    position:relative;
+  }
+  nav a:hover{color:var(--accent);}
+  .nav-toggle{display:none;background:none;border:1px solid var(--panel-border);color:var(--text);font-family:var(--font-mono);padding:6px 10px;font-size:12px;cursor:pointer;}
+
+  @media (max-width:720px){
+    nav ul{
+      position:fixed;
+      top:57px;left:0;right:0;
+      flex-direction:column;
+      background:var(--bg-alt);
+      border-bottom:1px solid var(--panel-border);
+      padding:16px 28px;
+      gap:16px;
+      display:none;
+    }
+    nav ul.open{display:flex;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:110px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;height:100%;
+    background:radial-gradient(ellipse 600px 300px at 20% 0%, var(--accent-soft), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px;height:1px;
+    background:var(--accent);
+  }
+  .terminal{
+    font-family:var(--font-mono);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    padding:0;
+    margin-bottom:32px;
+    max-width:640px;
+    box-shadow:0 12px 30px -14px rgba(0,0,0,0.5);
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 14px;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .terminal-bar span{
+    width:10px;height:10px;border-radius:50%;
+    background:#2a333e;
+  }
+  .terminal-bar .label{
+    font-size:13px;
+    color:var(--text-dim);
+    margin-left:8px;
+    letter-spacing:0px;
+  }
+  .terminal-body{
+    padding:18px 20px 22px;
+    font-size:14px;
+    min-height:118px;
+  }
+  .terminal-body .line{color:var(--text-dim);}
+  .terminal-body .prompt{color:var(--accent);}
+  .terminal-body .out{color:var(--text);}
+  .cursor{
+    display:inline-block;
+    width:8px;height:15px;
+    background:var(--accent);
+    vertical-align:middle;
+    margin-left:2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  h1.title{
+    font-family:var(--font-mono);
+    font-size:clamp(32px,5vw,52px);
+    font-weight:700;
+    letter-spacing:-0.5px;
+    color:var(--text);
+    margin-bottom:14px;
+  }
+  h1.title span{color:var(--accent);}
+  .subtitle{
+    font-size:17px;
+    color:var(--text-dim);
+    max-width:560px;
+    margin-bottom:34px;
+  }
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    letter-spacing:0.5px;
+    padding:12px 22px;
+    border-radius:4px;
+    border:1px solid var(--panel-border);
+    transition:all 0.2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#08110d;
+    border-color:var(--accent);
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#3fc094;transform:translateY(-1px);}
+  .btn-ghost{color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:80px 0;border-top:1px solid var(--panel-border);}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:40px;
+  }
+  .section-num{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    border:1px solid var(--accent-dim);
+    padding:3px 8px;
+    border-radius:3px;
+  }
+  .section-title{
+    font-family:var(--font-mono);
+    font-size:22px;
+    font-weight:600;
+    letter-spacing:-0.3px;
+  }
+  .section-sub{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-faint);
+    margin-left:auto;
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+
+  /* ---------- PROFILE ---------- */
+  .profile-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:40px;
+  }
+  @media (max-width:720px){.profile-grid{grid-template-columns:1fr;}}
+  .profile-text p{color:var(--text-dim);margin-bottom:16px;font-size:15px;}
+  .profile-text strong{color:var(--text);font-weight:600;}
+  .info-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    padding:20px 22px;
+    align-self:start;
+  }
+  .info-card dt{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-top:14px;
+  }
+  .info-card dt:first-child{margin-top:0;}
+  .info-card dd{font-size:14px;color:var(--text);margin-top:3px;}
+  .goal-tag{
+    display:inline-block;
+    margin-top:14px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border:1px solid var(--accent-dim);
+    padding:5px 10px;
+    border-radius:3px;
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:20px;
+    padding:20px 0;
+    border-bottom:1px solid var(--grid-line);
+  }
+  .edu-item:last-child{border-bottom:none;}
+  .edu-date{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+  }
+  .edu-name{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px;}
+  .edu-detail{font-size:14px;color:var(--text-dim);}
+  .module-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .module-tag{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-dim);
+    border:1px solid var(--panel-border);
+    padding:4px 9px;
+    border-radius:3px;
+  }
+
+  /* ---------- PROJECT ---------- */
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .project-head{
+    padding:26px 28px;
+    border-bottom:1px solid var(--panel-border);
+  }
+  .project-tagline{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:8px;
+  }
+  .project-title{font-size:21px;font-weight:600;color:var(--text);margin-bottom:8px;}
+  .project-desc{font-size:14px;color:var(--text-dim);max-width:640px;}
+  .project-body{padding:28px;}
+
+  .rbac-label{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .rbac-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:32px;
+  }
+  @media (max-width:720px){.rbac-grid{grid-template-columns:1fr 1fr;}}
+  .rbac-tier{
+    background:var(--bg-alt);
+    border:1px solid var(--panel-border);
+    border-left:3px solid var(--accent-dim);
+    border-radius:4px;
+    padding:14px 14px;
+    transition:border-color 0.2s, transform 0.2s;
+  }
+  .rbac-tier:hover{border-left-color:var(--accent);transform:translateY(-2px);}
+  .rbac-tier .tier-role{
+    font-family:var(--font-mono);
+    font-size:12px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:6px;
+  }
+  .rbac-tier .tier-scope{font-size:12px;color:var(--text-faint);}
+
+  .callout-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-bottom:28px;
+  }
+  @media (max-width:720px){.callout-grid{grid-template-columns:1fr;}}
+  .callout{
+    padding:14px 16px;
+    background:var(--bg-alt);
+    border:1px solid var(--panel-border);
+    border-radius:5px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+  .callout .callout-head{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--amber);
+    letter-spacing:0.5px;
+    margin-bottom:5px;
+    display:block;
+  }
+
+  .project-list{list-style:none;}
+  .project-list li{
+    position:relative;
+    padding-left:20px;
+    margin-bottom:10px;
+    font-size:14px;
+    color:var(--text-dim);
+  }
+  .project-list li::before{
+    content:'▸';
+    position:absolute;
+    left:0;
+    color:var(--accent);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media (max-width:720px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-cat{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    padding:18px 20px;
+  }
+  .skill-cat h3{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:14px;
+  }
+  .skill-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:7px 0;
+    border-bottom:1px solid var(--grid-line);
+    font-size:13.5px;
+  }
+  .skill-row:last-child{border-bottom:none;}
+  .skill-name{color:var(--text);}
+  .level-badge{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:3px 8px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+  .level-proficient{background:rgba(79,209,165,0.12);color:var(--accent);border:1px solid var(--accent-dim);}
+  .level-basic{background:rgba(224,169,79,0.1);color:var(--amber);border:1px solid rgba(224,169,79,0.35);}
+  .level-intro{background:rgba(147,163,176,0.08);color:var(--text-faint);border:1px solid var(--panel-border);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .timeline{position:relative;padding-left:24px;}
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:5px;top:6px;bottom:6px;
+    width:1px;
+    background:var(--panel-border);
+  }
+  .timeline-item{position:relative;padding-bottom:32px;}
+  .timeline-item:last-child{padding-bottom:0;}
+  .timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-24px;top:5px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+  }
+  .timeline-date{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.5px;
+  }
+  .timeline-role{font-size:15.5px;font-weight:600;color:var(--text);margin:4px 0 8px;}
+  .timeline-item ul{list-style:none;}
+  .timeline-item li{
+    position:relative;
+    padding-left:16px;
+    font-size:13.5px;
+    color:var(--text-dim);
+    margin-bottom:5px;
+  }
+  .timeline-item li::before{
+    content:'—';
+    position:absolute;left:0;
+    color:var(--text-faint);
+  }
+
+  /* ---------- CERTS ---------- */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media (max-width:720px){.cert-grid{grid-template-columns:1fr;}}
+  .cert-card{
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:6px;
+    padding:16px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .cert-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .cert-target{font-family:var(--font-mono);font-size:11px;color:var(--text-faint);}
+  .status-pill{
+    font-family:var(--font-mono);
+    font-size:10px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    padding:4px 9px;
+    border-radius:20px;
+    background:rgba(224,169,79,0.12);
+    color:var(--amber);
+    border:1px solid rgba(224,169,79,0.4);
+    white-space:nowrap;
+  }
+
+  /* ---------- ADDITIONAL ---------- */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    padding:8px 14px;
+    border-radius:20px;
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--panel-border);
+    padding:70px 0 40px;
+    text-align:center;
+  }
+  footer .section-title{margin-bottom:12px;}
+  footer p{color:var(--text-dim);max-width:460px;margin:0 auto 28px;font-size:14.5px;}
+  .contact-row{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:50px;
+  }
+  .foot-meta{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.5px;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>ARMEN POP</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">MENU</button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#about">About</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#project">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap">
+      <div class="eyebrow">University of Staffordshire · BSc (Hons) Cyber Security</div>
+
+      <div class="terminal">
+        <div class="terminal-bar" role="img" aria-label="Terminal window titled whoami.sh">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="terminal-body" id="termBody"></div>
+      </div>
+
+      <h1 class="title">Armen Pop<br><span>Cybersecurity Student</span></h1>
+      <p class="subtitle">Building secure systems through access control design, risk management, and GDPR-aligned thinking — seeking a graduate role in SOC analysis or security operations.</p>
+      <div class="cta-row">
+        <a href="#project" class="btn btn-primary">View Key Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT ME -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">About Me</h2>
+      </div>
+      <div class="profile-text reveal">
+          <p>Hi, I'm Armen Pop and I am a fourth year student studying Cyber Security at University of Staffordshire.</p>
+          <p>I've always known I wanted to specialise and build my career around technology, that's when I found Cyber Security and ever since then I have been obsessed; to be on the journey to join the Red Team and become a Penetration Tester.</p>
+          <p>My main inspiration to become a penetration tester was jailbreaking and then modding old consoles such as the original Nintendo Wii. This interest then evolved into a career prospect in secondary school when I took up computer science. </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Professional Profile</h2>
+      </div>
+      <div class="profile-grid reveal">
+        <div class="profile-text">
+          <p>Motivated <strong>Cybersecurity student</strong> at University of Staffordshire with hands-on experience designing secure systems, access control architectures, and risk management frameworks through academic and real-world project work.</p>
+          <p>Demonstrated ability to apply <strong>GDPR compliance thinking</strong>, threat analysis, and security design principles in a team environment.</p>
+          <p>Currently seeking a graduate role in cybersecurity — specifically <strong>SOC analysis or security operations</strong> — where I can develop technical skills alongside experienced professionals.</p>
+        </div>
+        <div class="info-card">
+          <dl>
+            <dt>Location</dt>
+            <dd>United Kingdom</dd>
+            <dt>Studying</dt>
+            <dd>BSc (Hons) Cyber Security</dd>
+            <dt>Institution</dt>
+            <dd>University of Staffordshire</dd>
+            <dt>Focus areas</dt>
+            <dd>Access control, risk management, GDPR</dd>
+          </dl>
+          <span class="goal-tag">🎯 Targeting: SOC Analyst / Security Operations</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Education</h2>
+      </div>
+      <div class="reveal">
+        <div class="edu-item">
+          <div class="edu-date">2023 — Present</div>
+          <div>
+            <div class="edu-name">BSc (Hons) Cyber Security</div>
+            <div class="edu-detail">University of Staffordshire</div>
+            <div class="module-tags">
+              <span class="module-tag">Professional Practice &amp; Project Management</span>
+              <span class="module-tag">Network Security</span>
+              <span class="module-tag">Operating Systems Security</span>
+              <span class="module-tag">Ethical Hacking Principles</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-date">Completed 2023</div>
+          <div>
+            <div class="edu-name">A-Levels</div>
+            <div class="edu-detail">Mathematics · Computer Science · Physics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY PROJECTS -->
+  <section id="project">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Key Projects</h2>
+      </div>
+
+      <div class="project-card reveal" style="margin-bottom:28px;">
+        <div class="project-head">
+          <div class="project-tagline">COMP50074 · Professional Practice &amp; Project Management · Group 4 · 2025–2026</div>
+          <div class="project-title">Home First — Secure Service User &amp; Staff Portal</div>
+          <p class="project-desc">Led the solution proposal and technical development for a cloud-based portal designed for a care organisation handling sensitive personal data across multiple stakeholder groups.</p>
+        </div>
+
+        <div class="project-body">
+          <div class="rbac-label">Role-Based Access Control — Four-Tier Model (Least Privilege)</div>
+          <div class="rbac-grid">
+            <div class="rbac-tier">
+              <div class="tier-role">Office Manager</div>
+              <div class="tier-scope">Administrative oversight &amp; reporting</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Field Staff</div>
+              <div class="tier-scope">Client visit &amp; task-level access</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Service User</div>
+              <div class="tier-scope">Own-record visibility only</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">System Admin</div>
+              <div class="tier-scope">Full platform configuration</div>
+            </div>
+          </div>
+
+          <div class="callout-grid">
+            <div class="callout">
+              <span class="callout-head">UK GDPR Article 32</span>
+              Specified Multi-Factor Authentication and end-to-end encryption controls aligned to security-of-processing requirements.
+            </div>
+            <div class="callout">
+              <span class="callout-head">UK GDPR Article 5</span>
+              Applied data minimisation principles across the data migration and system design phases.
+            </div>
+          </div>
+
+          <ul class="project-list">
+            <li>Produced a risk register with probability/impact ratings and explicit mitigations covering data breach, access control failure, AI misuse, and staff non-compliance</li>
+            <li>Authored a structured security test plan covering functional, security, and user acceptance testing</li>
+            <li>Used a weighted scoring matrix across seven criteria to produce a defensible, evidence-based solution recommendation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="margin-bottom:28px;">
+        <div class="project-head">
+          <div class="project-tagline">University Assessment · Practical CTF Exam</div>
+          <div class="project-title">Capture The Flag Exam — Offensive Security Challenge</div>
+          <p class="project-desc">Completed a practical, exam-conditions CTF requiring flags to be captured across multiple offensive security phases using Kali Linux tooling.</p>
+        </div>
+
+        <div class="project-body">
+          <div class="rbac-label">Attack Phases Covered</div>
+          <div class="rbac-grid">
+            <div class="rbac-tier">
+              <div class="tier-role">Reconnaissance</div>
+              <div class="tier-scope">Information gathering</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Scanning</div>
+              <div class="tier-scope">Host &amp; service discovery</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Enumeration</div>
+              <div class="tier-scope">Identifying attack surface</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">SQL Injection</div>
+              <div class="tier-scope">Database exploitation</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Sniffing</div>
+              <div class="tier-scope">Traffic interception</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">DDoS</div>
+              <div class="tier-scope">Availability attacks</div>
+            </div>
+          </div>
+
+          <ul class="project-list">
+            <li>Performed reconnaissance and scanning under exam conditions to identify live hosts, open ports, and running services</li>
+            <li>Captured flags through enumeration and SQL injection exploitation techniques</li>
+            <li>Carried out simulated DDoS and traffic sniffing exercises using Kali Linux tooling in a controlled environment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="margin-bottom:28px;">
+        <div class="project-head">
+          <div class="project-tagline">Personal Project · Self-Directed Home Lab</div>
+          <div class="project-title">Home Cybersecurity Lab — Offensive &amp; Defensive VM Environment</div>
+          <p class="project-desc">Built and manage a self-hosted virtual lab in VMware to practise penetration testing techniques and traffic analysis in a fully isolated environment.</p>
+        </div>
+
+        <div class="project-body">
+          <div class="rbac-label">Lab Topology — Attacker / Target Configuration</div>
+          <div class="rbac-grid">
+            <div class="rbac-tier">
+              <div class="tier-role">Kali Linux</div>
+              <div class="tier-scope">Attack host VM</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Metasploitable</div>
+              <div class="tier-scope">Deliberately vulnerable target</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Windows VM</div>
+              <div class="tier-scope">Target endpoint</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">VMware</div>
+              <div class="tier-scope">Hypervisor &amp; VM management</div>
+            </div>
+          </div>
+
+          <div class="callout-grid">
+            <div class="callout">
+              <span class="callout-head">Resource Allocation</span>
+              Assigned CPU cores, disk space, and memory per VM so each machine ran reliably without starving the others.
+            </div>
+            <div class="callout">
+              <span class="callout-head">Virtual Networking</span>
+              Configured internal networking so VMs could correctly discover and communicate with one another in isolation from the host network.
+            </div>
+          </div>
+
+          <ul class="project-list">
+            <li>Used Kali Linux as the attack host against a Metasploitable target to practise penetration testing techniques</li>
+            <li>Simulated red-team style attacks, including DDoS-style traffic, against target VMs in a controlled environment</li>
+            <li>Used Wireshark to capture and analyse traffic generated during simulated attacks</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="margin-bottom:28px;">
+        <div class="project-head">
+          <div class="project-tagline">Personal Project · Networking Fundamentals</div>
+          <div class="project-title">Network Configuration Lab — Cisco Packet Tracer</div>
+          <p class="project-desc">Designed and configured simulated LAN/WAN topologies to reinforce the networking fundamentals — routing, addressing, and device connectivity — that underpin firewall rules, segmentation, and access control design.</p>
+        </div>
+
+        <div class="project-body">
+          <div class="rbac-label">Topology Components</div>
+          <div class="rbac-grid">
+            <div class="rbac-tier">
+              <div class="tier-role">Routers</div>
+              <div class="tier-scope">Inter-network routing</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">LAN / WAN Links</div>
+              <div class="tier-scope">End-to-end connectivity</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Servers</div>
+              <div class="tier-scope">Network resource hosting</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Printers</div>
+              <div class="tier-scope">Shared network devices</div>
+            </div>
+          </div>
+
+          <ul class="project-list">
+            <li>Connected multiple LAN and WAN segments with correctly configured routers and end devices</li>
+            <li>Verified successful end-to-end packet transfer between devices using Packet Tracer's simulation mode</li>
+            <li>Configured servers and printers to communicate reliably across connected network segments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-head">
+          <div class="project-tagline">University Assignment · Web Development Fundamentals</div>
+          <div class="project-title">Website Build — HTML, CSS &amp; JavaScript</div>
+          <p class="project-desc">Designed and built a website from scratch using core web technologies. Understanding how sites are structured and rendered client-side directly supports recognising common web application vulnerabilities such as XSS and SQL injection.</p>
+        </div>
+
+        <div class="project-body">
+          <div class="rbac-label">Core Technologies</div>
+          <div class="rbac-grid">
+            <div class="rbac-tier">
+              <div class="tier-role">HTML</div>
+              <div class="tier-scope">Structure &amp; semantics</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">CSS</div>
+              <div class="tier-scope">Styling &amp; layout</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">JavaScript</div>
+              <div class="tier-scope">Client-side interactivity</div>
+            </div>
+            <div class="rbac-tier">
+              <div class="tier-role">Responsive Design</div>
+              <div class="tier-scope">Cross-device compatibility</div>
+            </div>
+          </div>
+
+          <ul class="project-list">
+            <li>Structured and styled a multi-page site from scratch using semantic HTML and custom CSS, without a framework</li>
+            <li>Implemented interactive elements using vanilla JavaScript</li>
+            <li>Built practical, first-hand understanding of client-side web architecture — the foundation for spotting how web applications can be exploited</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Technical Skills</h2>
+      </div>
+
+      <div class="skills-grid reveal">
+        <div class="skill-cat">
+          <h3>Security</h3>
+          <div class="skill-row"><span class="skill-name">RBAC design</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">Risk registers</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">Security test planning</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">GDPR compliance</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">MFA specification</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">Threat analysis</span><span class="level-badge level-basic">Basic</span></div>
+        </div>
+
+        <div class="skill-cat">
+          <h3>Networking</h3>
+          <div class="skill-row"><span class="skill-name">TCP/IP · OSI Model</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">DNS</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Firewalls</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">VPNs</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Client-server architecture</span><span class="level-badge level-basic">Basic</span></div>
+        </div>
+
+        <div class="skill-cat">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="skill-row"><span class="skill-name">Kali Linux</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Nmap</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Wireshark</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">Metasploit</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">VMware</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Active Directory</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">TryHackMe</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">HackTheBox</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">XAMPP</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">VS Code</span><span class="level-badge level-proficient">Applied</span></div>
+        </div>
+
+        <div class="skill-cat">
+          <h3>Programming &amp; Other</h3>
+          <div class="skill-row"><span class="skill-name">Python</span><span class="level-badge level-basic">Basic scripting</span></div>
+          <div class="skill-row"><span class="skill-name">Bash</span><span class="level-badge level-intro">Introductory</span></div>
+          <div class="skill-row"><span class="skill-name">SQL</span><span class="level-badge level-basic">Basic</span></div>
+          <div class="skill-row"><span class="skill-name">Technical documentation</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">Stakeholder reporting</span><span class="level-badge level-proficient">Applied</span></div>
+          <div class="skill-row"><span class="skill-name">Microsoft Office suite</span><span class="level-badge level-proficient">Applied</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Work Experience</h2>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <!--
+            EDIT ME: Add the real dates, country, and organisation for your
+            cybersecurity work experience abroad. Update the date, role name,
+            and bullet points below with the actual details.
+          -->
+          <div class="timeline-date">[Add dates]</div>
+          <div class="timeline-role">Cybersecurity Work Experience — [Add country / organisation]</div>
+          <ul>
+            <li>[Write a bullet point about what you did — e.g. tasks, tools used, environment]</li>
+            <li>[Write a bullet point about a skill or outcome from the placement]</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2022 — 2023</div>
+          <div class="timeline-role">Sales Associate — Ralph Lauren</div>
+          <ul>
+            <li>Delivered high standards of customer service in a fast-paced, high-value retail environment</li>
+            <li>Handled sensitive customer payment and personal data in line with company data protection policy</li>
+            <li>Collaborated with team members to maintain store operations and meet daily targets</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2021 — 2022</div>
+          <div class="timeline-role">Sales Associate — Clarks</div>
+          <ul>
+            <li>Achieved highest individual sales rate during shifts through active listening and product knowledge</li>
+            <li>Processed customer orders accurately using POS technology under time pressure</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2021 — 2022</div>
+          <div class="timeline-role">Bar Staff — Wetherspoons &amp; Horn and Trumpet</div>
+          <ul>
+            <li>Managed high-volume, time-critical workloads in a fast-paced hospitality environment</li>
+            <li>Developed strong communication skills when handling difficult situations and diverse customers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Certifications &amp; Development</h2>
+        <span class="section-sub">In Progress</span>
+      </div>
+
+      <div class="cert-grid reveal">
+        <div class="cert-card">
+          <div>
+            <div class="cert-name">CompTIA Security+</div>
+            <div class="cert-target">Target: December 2026</div>
+          </div>
+          <span class="status-pill">Pending</span>
+        </div>
+        <div class="cert-card">
+          <div>
+            <div class="cert-name">CompTIA Network+</div>
+            <div class="cert-target">Target: 2026/2027</div>
+          </div>
+          <span class="status-pill">Pending</span>
+        </div>
+        <div class="cert-card">
+          <div>
+            <div class="cert-name">Google Cybersecurity Certificate</div>
+            <div class="cert-target">Coursera</div>
+          </div>
+          <span class="status-pill">Pending</span>
+        </div>
+        <div class="cert-card">
+          <div>
+            <div class="cert-name">TryHackMe — SOC Level 1 Path</div>
+            <div class="cert-target">Target: August 2026</div>
+          </div>
+          <span class="status-pill">Pending</span>
+        </div>
+        <div class="cert-card">
+          <div>
+            <div class="cert-name">Home Lab: AD with RBAC + MFA</div>
+            <div class="cert-target">VMware / Windows Server</div>
+          </div>
+          <span class="status-pill">Building</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADDITIONAL -->
+  <section id="additional">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2 class="section-title">Additional Information</h2>
+      </div>
+      <div class="chip-row reveal">
+        <span class="chip">📚 Maths tutor for primary school students</span>
+        <span class="chip">🗣️ Fluent — Armenian (native) &amp; English</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2 class="section-title">Get In Touch</h2>
+    <p>Open to graduate opportunities in SOC analysis and security operations. Feel free to reach out.</p>
+    <div class="contact-row">
+      <a href="mailto:armenpop05@gmail.com" class="btn btn-primary">✉ Email Me</a>
+      <a href="https://www.linkedin.com/in/armen-pop-aa5128335/" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/armxnpop" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="foot-meta">© 2026 Armen Pop · Built with intent, secured by design</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+  navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+
+  // Terminal boot sequence
+  const termBody = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const lines = [
+    { prompt: '~$ ', text: 'whoami', type: 'cmd' },
+    { text: 'armen_pop — cybersecurity student', type: 'out' },
+    { prompt: '~$ ', text: 'cat status.txt', type: 'cmd' },
+    { text: 'role: BSc (Hons) Cyber Security, University of Staffordshire', type: 'out' },
+    { text: 'seeking: SOC Analyst / Security Operations — graduate role', type: 'out' },
+  ];
+
+  function renderStatic(){
+    termBody.innerHTML = lines.map(l =>
+      l.type === 'cmd'
+        ? `<div class="line"><span class="prompt">${l.prompt}</span><span class="out">${l.text}</span></div>`
+        : `<div class="line out" style="padding-left:18px;color:#93a3b0;">${l.text}</div>`
+    ).join('');
+  }
+
+  if(reduceMotion){
+    renderStatic();
+  } else {
+    let li = 0, ci = 0;
+    const cursor = () => '<span class="cursor"></span>';
+
+    function typeNext(){
+      if(li >= lines.length){
+        return;
+      }
+      const current = lines[li];
+      const fullText = current.text;
+      if(ci === 0){
+        const div = document.createElement('div');
+        div.className = 'line';
+        if(current.type === 'out'){ div.style.paddingLeft = '18px'; div.style.color = '#93a3b0'; }
+        div.innerHTML = current.type === 'cmd' ? `<span class="prompt">${current.prompt}</span><span class="out"></span>${cursor()}` : `<span class="out"></span>${cursor()}`;
+        termBody.appendChild(div);
+      }
+      const div = termBody.lastElementChild;
+      const outSpan = div.querySelector('.out');
+      if(ci <= fullText.length){
+        outSpan.textContent = fullText.slice(0, ci);
+        ci++;
+        setTimeout(typeNext, current.type === 'cmd' ? 42 : 12);
+      } else {
+        const cur = div.querySelector('.cursor');
+        if(cur) cur.remove();
+        li++; ci = 0;
+        setTimeout(typeNext, 220);
+      }
+    }
+    typeNext();
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
